@@ -1,0 +1,77 @@
+@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+body {
+  font-family: 'Droid Serif';
+}
+
+h1, h2, h3 {
+  font-family: 'Yanone Kaffeesatz';
+  font-weight: normal;
+}
+
+.white {
+  color: white;
+}
+
+.bg-black {
+  background-color: #272822;
+}
+
+.remark-code, .remark-inline-code {
+  font-family: 'Monaco';
+}
+
+/* Two-column layout */
+
+.left-column {
+  color: #777;
+  width: 20%;
+  height: 92%;
+  float: left;
+}
+
+.left-column h2:last-of-type, .left-column h3:last-child, .left-column h4:last-child {
+  color: #000;
+  color: #bf1e2e;
+}
+
+.right-column {
+  width: 75%;
+  float: right;
+  padding-top: 1em;
+}
+
+.red {
+  color: #fa0000;
+}
+
+.dark-red {
+  color: #bf1e2e;
+}
+
+strong, b {
+  color: #379fb2;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  font-weight: bold;
+}
+
+th, td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+tr {
+  border-top: 1px solid #c6cbd1;
+}
+
+tr:nth-child(2n) {
+  background-color: #F6F8FA;
+}

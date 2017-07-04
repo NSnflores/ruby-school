@@ -3,89 +3,26 @@
   <head>
     <title>ActiveRecord</title>
     <meta charset="utf-8">
-    <style>
-      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
-      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
-
-      body { 
-        font-family: 'Droid Serif'; 
-      }
-      h1, h2, h3 {
-        font-family: 'Yanone Kaffeesatz';
-        font-weight: normal;
-
-      }
-      .white {color: white;}
-      .bg-black {background-color: #272822;}
-      .remark-code, .remark-inline-code { font-family: 'Monaco'; }
-
-       /* Two-column layout */
-      .left-column {
-        color: #777;
-        width: 20%;
-        height: 92%;
-        float: left;
-      }
-      .left-column h2:last-of-type, .left-column h3:last-child,.left-column h4:last-child {
-        color: #000;
-        color: #bf1e2e;
-      }
-      .right-column {
-        width: 75%;
-        float: right;
-        padding-top: 1em;
-      }
-
-      .red { color: #fa0000; }
-      .dark-red {
-        color: #bf1e2e;
-      }
-
-      
-      strong, b {color: #379fb2;}
-
-        table {
-          border-collapse: collapse;
-        }
-            
-        th {
-            font-weight: bold;
-        }
-
-        th, td {
-                padding: 6px 13px;
-                border: 1px solid #dfe2e5;
-        }
-
-        tr {
-            border-top: 1px solid #c6cbd1;
-        }
-      
-        tr:nth-child(2n) {
-            background-color: #F6F8FA;
-        }
-
-    </style>
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <textarea id="source">
       layout: true
-      background-image: url(bg1.png)
+      background-image: url(images/bg1.png)
       background-position: left bottom
 
       ---
       class: center, middle
 
-      # ActiveRecord 
-      
+      # ActiveRecord
+
       Andrei Helo
-      
+
       Daniel Varela
 
-    
+
       ---
-      
+
       .left-column[
       # Agenda
       ]
@@ -93,7 +30,7 @@
       ### 1. ¿Qué es ActiveRecord?
       ### 2. _"Convention over Configuration"_
       ### 3. Nombres y convenciones
-      ### 5. Ejercicios 
+      ### 5. Ejercicios
       - ### 5.1 Modelos
       - ### 5.2 CRUD
       ]
@@ -111,35 +48,35 @@
 
       - Nos ayuda a interactuar con los datos de la base de datos fácilmente.
 
-      - Además que nos permite validar la información antes de ser enviada a la BD. 
+      - Además que nos permite validar la información antes de ser enviada a la BD.
 
       - Migraciones automaticas 🤘
 
-      - Asociaciones bien bonis 😍 
+      - Asociaciones bien bonis 😍
 
       ]
-     
+
       ---
       .left-column[
       ### ¿Qué es ActiveRecord?
       ### Patrón de diseño
       ]
       .right-column[
-      ### Patrón de diseño 
-      
+      ### Patrón de diseño
+
       **.red[ActiveRecord]** como patrón de diseño (donde sea!)
-      
+
       <br/>
 
       - Nombrado así en _"Patterns of Enterprise Application Architecture"_ por **Martin Fowler** 🤓
-    
+
       - Es un objeto que **envuelve** un renglón en una tabla de la base de datos y que también **ecapsula** el acceso a la base de datos y agrega lógica a esos datos.
-    
+
       - Cuenta con funciones para **insertar, actualizar, y eliminar** datos de la base de datos
 
       - Se hizo famoso por la implementación en **Rails** pero existe en casí todos los lenguajes conocidos
       ]
-      
+
       ---
       .left-column[
       ### ¿Qué es ActiveRecord?
@@ -162,8 +99,8 @@
 
         class Usuario < ActiveRecord::Base
           # cosas de validaciones
-          # cosas de asociaciones 
-        end 
+          # cosas de asociaciones
+        end
       ```
 
       ]
@@ -175,20 +112,20 @@
       ### ActiveRecord Framework
       ]
       .right-column[
-      ### ActiveRecord framework: tipos de datos        
-        Tipo en Ruby | En Base de datos  
+      ### ActiveRecord framework: tipos de datos
+        Tipo en Ruby | En Base de datos
         -------------|-------------------
-        string:      | `varchar`         
-        text:        | `text`            
-        integer:     | `int`             
-        float:       | `float`        
-        decimal:     | `decimal`      
-        datetime:    | `datetime`     
-        timestamp:   | `timestamp`    
-        date:        | `date`         
-        binary:      | `blob`            
-        boolean:     | `tinyint`         
-        json:        | `json`         
+        string:      | `varchar`
+        text:        | `text`
+        integer:     | `int`
+        float:       | `float`
+        decimal:     | `decimal`
+        datetime:    | `datetime`
+        timestamp:   | `timestamp`
+        date:        | `date`
+        binary:      | `blob`
+        boolean:     | `tinyint`
+        json:        | `json`
 
       ]
 
@@ -228,13 +165,13 @@
 
         - Funciona sin tener que configurar toda tu aplicación (out of the box)
 
-        - En caso de necestiar cambiar algo, es muy flexibile y te permite hacerlo, por ejemplo en las bases de datos legacies 
+        - En caso de necestiar cambiar algo, es muy flexibile y te permite hacerlo, por ejemplo en las bases de datos legacies
 
 
       ]
 
 
-      
+
       ---
       .left-column[
       ### Nombres y convenciones
@@ -243,15 +180,15 @@
         ### Nombres y convenciones
 
         Por default ActiveRecord usa algunas convenciones de nombres para las tablas y columnas, objetos y propiedades
-    
+
         .red[ejemplo:]
 
-        Model/Class         | Table/Schema  
+        Model/Class         | Table/Schema
         --------------------|---------------
-        `Articulo`          | `articulos`       
-        `LineItem`          | `line_items`     
+        `Articulo`          | `articulos`
+        `LineItem`          | `line_items`
         `Perro`             | `perros`
-        `Mouse`             | `mice`           
+        `Mouse`             | `mice`
         `Person`            | `people`
 
       ]
@@ -264,22 +201,22 @@
         ### Nombres y convenciones
 
         - El nombre de las columnas seran el mismo a el de los atributos
-        
+
         .red[ejemplo:]
-        
+
         ```ruby
           p = Person.new
           p.nombre = 'John'
         ```
-        
+
         en la base de datos debe existir una tabla llamada ***'people'*** con una columna llamada ***'nombre'***
 
         <br/>
-        es posible hacer el mapeo de una propieda a otra columna en la base de datos usando 
+        es posible hacer el mapeo de una propieda a otra columna en la base de datos usando
 
         ```ruby
         alias_attribute :<nombre-nuevo>, :<nombre-de-la-columna>
-        ``` 
+        ```
       ]
 
       ---
@@ -288,13 +225,13 @@
       # Ejercicios \o/
 
       dvarelap/ruby-school
-     
+
       ---
       class: center, middle
       # ¿Preguntas?
-      
+
     </textarea>
-    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    <script src="js/remark-latest.min.js">
     </script>
     <script>
       var slideshow = remark.create();
