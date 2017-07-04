@@ -1,11 +1,11 @@
 # Ruby School
 
 
-## ActiveRectord
+## ActiveRecord
 
-Instalacion de Postgres?
+Instalación de Postgres?
 
-crear base de datos y tabla de usuarios con las columnas id, nombre y apellido
+Crear base de datos y tabla de usuarios con las columnas id, nombre y apellido
 
 
 ```shell
@@ -61,7 +61,7 @@ Usuario.create(nombre: 'Juan', apellido: 'Hernandez')
 
 ### Actualicemos el apellido de Juan Hernandez a 'Perez'
 
-#### Primer necesitamos traer nuestro registro de la base de datos usando la función `find`
+#### Primero necesitamos traer nuestro registro de la base de datos usando la función `find`
 ```ruby
 user = Usuario.find(<id>)
 ```
@@ -93,7 +93,7 @@ juanes = Usuario.where(nombre: 'Juan')
 ```
 
 
-despues borramos a Juan hernandez seleccionnadolo de la lista 'jaunes'
+despues borramos a Juan Hernandez seleccionándolo de la lista 'juanes'
 ```ruby
 juan_vargas = juanes.first
 juan_vargas.destroy

@@ -75,3 +75,7 @@ tr {
 tr:nth-child(2n) {
   background-color: #F6F8FA;
 }
+
+.small-image > img {
+  height: 150px;
+}

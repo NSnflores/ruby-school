@@ -16,11 +16,13 @@ ActiveRecord::Schema.define(version: 20170704052438) do
   enable_extension "plpgsql"
 
   create_table "personas", force: :cascade do |t|
+    t.integer "numero_de_empleado"
     t.string "nombre"
     t.date "fecha_de_nacimiento"
     t.string "genero"
     t.string "apodo"
     t.float "ahorro", default: 0.0
+    t.integer "estatura", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

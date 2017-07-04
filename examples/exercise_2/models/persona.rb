@@ -1,5 +1,7 @@
 class Persona < ActiveRecord::Base
- validates :genero, presence: true
+  validates :nombre, format: { with: /\A[a-zA-Z]+\z/ }, unless: :es_un_enano?
+  validates :genero, presence: true
+  validate  :fecha_de_nacimiento_no_puede_ser_en_el_futuro
 
   def saludar
     puts "Hola, mi nombre es #{nombre}, mucho gusto!"
@@ -22,5 +24,17 @@ class Persona < ActiveRecord::Base
 
   def obtener_paga(sueldo)
     self.ahorro += sueldo
+  end
+
+  def es_un_enano?
+    estatura < 120
+  end
+
+  private
+
+  def fecha_de_nacimiento_no_puede_ser_en_el_futuro
+    if fecha_de_nacimiento.present? && fecha_de_nacimiento < Date.today
+      errors.add(:fecha_de_nacimiento, 'a menos de que seas un viajero del tiempo no puede ser en el futuro...')
+    end
   end
 end

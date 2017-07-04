@@ -28,9 +28,8 @@
       ### 1. ¿Qué es ActiveRecord?
       ### 2. _"Convention over Configuration"_
       ### 3. Nombres y convenciones
+      ### 4. Validaciones, Migraciones y Asociaciones
       ### 5. Ejercicios
-      - ### 5.1 Modelos
-      - ### 5.2 CRUD
       ]
 
       ---
@@ -187,6 +186,319 @@
       ]
       .right-column[
         ### Nombres y convenciones
+
+        - El nombre de las columnas seran el mismo al de los atributos.
+
+        .red[Ejemplo:]
+
+        ```ruby
+          p = Person.new
+          p.nombre = 'John'
+        ```
+
+        En la base de datos debe existir una tabla llamada ***'people'*** con una columna llamada ***'nombre'***.
+
+        <br/>
+        Es posible hacer el mapeo de una propiedad a otra columna en la base de datos usando:
+
+        ```ruby
+        alias_attribute :<nombre-nuevo>, :<nombre-de-la-columna>
+        ```
+      ]
+
+      ---
+      class: center, middle
+
+      # Validaciones, Migraciones y Asociaciones
+      (Y al parecer todo lo que termine con "aciones"...)
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Validaciones
+
+        Existen ocasiones en las que queremos mantener la ~~validez~~ consistencia de los datos.
+
+        - __Constraints__ en base de datos.
+
+        - Validaciones del lado del cliente.
+
+        Pero que mejor manera que hacerlo desde la clase misma!
+
+        .small-image.center.middle[![Stap](images/stap.jpg)]
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Validaciones
+
+        Toda validación será "disparada" por cualquiera de los siguientes métodos:
+
+        - `create` o `create!`
+
+        - `save` o `save!`
+
+        - `update` o `update!`
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Métodos valid? e invalid?
+
+        ¿Cómo saber si un objeto es válido o no?
+
+        ```ruby
+        >> Persona.create(nombre: 'Andrei Helo').valid?
+        # => true
+        >> Persona.create(nombre: nil).valid?
+        # => false
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Errores
+
+        Todo objeto de ActiveRecord tiene asociado un __arreglo__ de __errores__, el cual incluye
+        información relevante sobre los impedimentos para almacenar dicho objeto.
+
+        ```ruby
+        >> persona = Persona.create
+        # => #<Persona id: nil, nombre: nil, fecha_de_nacimiento: nil, genero: nil, apodo: nil, ahorro: 0.0, created_at: nil, updated_at: nil>
+        >> persona.errors.messages
+        # => {:genero=>["can't be blank"]}
+        >> persona.errors.full_messages
+        # => ["Genero can't be blank"]
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Validation Helpers
+
+        ActiveRecord ofrece un grán número de __helpers__ predefinidos y es posible incluso asignarles un mensaje personalizado.
+
+        ```ruby
+        class Persona < ActiveRecord::Base
+          validates :atributo_1, helper_1: true
+          validates :atributo_2,
+                    helper_2: {
+                      message: 'No se arma compa!'
+                    }
+        end
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Validation Helpers
+
+        Algunos de los más comunes:
+
+        - `:format`
+
+        - `:length`
+
+        - `:numericality`
+
+        - `:presence`
+
+        - `:uniqueness`
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Format
+
+        ```ruby
+        class Persona < ActiveRecord::Base
+          validates :nombre,
+            format: {
+              with: /\A[a-zA-Z]+\z/,
+              message: 'Hey! Solo letras chato!'
+            }
+        end
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Length
+
+        Acepta opciones como:
+
+        - `:minimum`
+
+        - `:maximum`
+
+        - `:in`
+
+        - `:is`
+
+        ```ruby
+        class Persona < ActiveRecord::Base
+            validates :contrasena, length: { in: 1..8 }
+        end
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Numericality
+
+        Acepta opciones como:
+
+        - `:greater_than`
+        - `:greater_than_or_equal_to`
+        - `:equal_to`
+        - `:less_than`
+        - `:less_than_or_equal_to`
+        - `:other_than`
+        - `:odd`
+        - `:even`
+        ```ruby
+        class Persona < ActiveRecord::Base
+            validates :estatura,
+              numericality: { only_integer: true }
+        end
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Presence
+
+        ```ruby
+        class Persona < ActiveRecord::Base
+          validates :nombre, presence: true
+        end
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Uniqueness
+
+        ```ruby
+        class Persona < ActiveRecord::Base
+          validates :numero_de_empleado, uniqueness: true
+        end
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### :if y :unless
+
+        Es posible especificar bajo qué circunstancias ejecutar las validaciones.
+
+        ```ruby
+        class Persona < ActiveRecord::Base
+          validates :nombre,
+            format: { with: /\A[a-zA-Z]+\z/ },
+            unless: :es_un_enano?
+
+          def es_un_enano?
+            estatura < 120
+          end
+        end
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ]
+      .right-column[
+        ### Validaciones personalizadas
+
+        #### Y la magia continúa! \o/
+
+        También podemos especificar las validaciones que se nos ocurran.
+
+        ```ruby
+        class Persona < ActiveRecord::Base
+          validate :fecha_de_nacimiento_no_puede_ser_en_el_futuro
+
+          private
+
+          def fecha_de_nacimiento_no_puede_ser_en_el_futuro
+            if fecha_de_nacimiento.present?
+              && fecha_de_nacimiento > Date.today
+                errors.add(:fecha_de_nacimiento,
+                  'a menos de que seas un viajero del tiempo no puede ser en el futuro...'
+                )
+            end
+          end
+        end
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ### Migraciones
+      ]
+      .right-column[
+        ### Migraciones
+
+        Son una manera conveniente de modificar nuestra base de datos
+        a través del tiempo de una forma sencilla y consistente en lugar de darnos
+        de __trancazos__ directamente con el manejador de base de datos.
+
+        Para implementarlas fácilmente usaremos la gema Standalone Migrations:
+
+        https://github.com/thuss/standalone-migrations
+
+        ```ruby
+          p = Person.new
+          p.nombre = 'John'
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ### Migraciones
+      ### Asociaciones
+      ]
+      .right-column[
+        ### Asociaciones
 
         - El nombre de las columnas seran el mismo al de los atributos.
 
