@@ -106,17 +106,16 @@
       ### Patrón de diseño 
       
       **.red[ActiveRecord]** como patrón de diseño (donde sea!)
+      
+      <br/>
 
       - Nombrado así en _"Patterns of Enterprise Application Architecture"_ por **Martin Fowler** 🤓
 
       - Cuenta con funciones para **insertar, actualizar, y eliminar** datos de la base de datos
 
-      - Se trata de .red[_"mapear"_] tablas y sus columnas en la Base de Datos a objetos y sus atributos en el lenguaje de programación.
+      - Se trata de .red[_"mapear"_] tablas y sus columnas en la Base de Datos a objetos y sus atributos en el lenguaje de programación. A esto se le llama **ORM** (Object-Relational mapping) 
   
       - Se hizo famoso por la implementación en **Rails** pero existe en casí todos los lenguajes conocidos
-
-      - Es criticado por que no cumple con el principio de Reposabilidad Individual de (SOLID)
-
       ]
       ---
       .left-column[
@@ -132,10 +131,13 @@
 
       <br/>
 
+      como funciona?
       ```ruby
-        class Persona < ActiveRecord::Base
-          attr_accessor :nombre, :apellido
+        require 'active_record'
 
+        class Usuario < ActiveRecord::Base
+          # cosas de validaciones
+          # cosas de asociaciones 
         end 
       ```
 
@@ -143,58 +145,42 @@
 
       ---
       .left-column[
-      ### ¿Qué es ActiveRecord?
-      ### ¿Por qué usarlo?
-      ### Características
-      ### Comandos 
+      ### _"Convention over Configuration"_
       ]
       .right-column[
-      ### Comandos 
-      #### `git init`
-      #### `git clone <repo>`
-      #### `git status`
-      #### `git add <dir>`
-      #### `git commit`
-      #### `git branch`
-      #### `git checkout <branch>`
-      ]
+        ### _"Convention over Configuration"_
 
-      ---
-      .left-column[
-      ### Comandos
-      #### `git init`
-      ]
-      .right-column[
-        #### `git init`
-        Inicializa tu directorio actual para el control de versiones con git
-
-        .dark-red[`ejemplo:`]
-
-        ```shell
-        $ git init
-        ```
-
-        Creará una carpeta llamada **`.git/`** en el directorio actual que contiene las información necesaria para el control de versiones
+        Es un paradigma de software que minimiza el número de decisiones que un desarrollador necesita tomar y gana simplicidad sin perder flexibilidad.
 
       ]
 
       ---
       .left-column[
-      ### Comandos
-      #### `git init`
-      #### `git clone`
+      ### _"Convention over Configuration"_
       ]
       .right-column[
-        #### `git clone`
-        En caso de que tu repositorio (proyecto) ya exista, puedes copiarlo (clonarlo) con el comando `git clone`
+        ### _"Convention over Configuration"_
 
-        .dark-red[`ejemplo:`]
+        Es un paradigma de software que minimiza el número de decisiones que un desarrollador necesita tomar y gana simplicidad sin perder flexibilidad.
 
-        ```shell
-        $ git clone project-dir/
-        ``` 
+        ![khe?](http://m.memegen.com/o03h28.jpg)
 
-        **`project-dir/`** puede ser un repositorio local o remoto.red[*]
+
+      ]
+
+      ---
+      .left-column[
+      ### _"Convention over Configuration"_
+      ]
+      .right-column[
+        ### _"Convention over Configuration"_
+
+        - Toma las desciciones más comunes por ti
+
+        - Funciona sin tener que configurar toda tu aplicación (out of the box)
+
+
+
 
       ]
 
