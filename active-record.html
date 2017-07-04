@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ActiveRecord</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { 
+        font-family: 'Droid Serif'; 
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+
+      }
+      .white {color: white;}
+      .bg-black {background-color: #272822;}
+      .remark-code, .remark-inline-code { font-family: 'Monaco'; }
+
+       /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+      .left-column h2:last-of-type, .left-column h3:last-child,.left-column h4:last-child {
+        color: #000;
+        color: #bf1e2e;
+      }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+
+      .red { color: #fa0000; }
+      .dark-red {
+        color: #bf1e2e;
+      }
+
+      
+      strong, b {color: #379fb2;}
+      
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+      layout: true
+      background-image: url(bg1.png)
+      background-position: left bottom
+
+      ---
+      class: center, middle
+
+      # ActiveRecord 
+      
+      Andrei Helo
+      
+      Daniel Varela
+
+    
+      ---
+      
+      .left-column[
+      # Agenda
+      ]
+      .right-column[
+      ### 1. ¿Qué es ActiveRecord?
+      ### 2. _"Convention over Configuration"_
+      ### 3. Nombres y convenciones
+      ### 5. Modelos
+      ### 6. CRUD
+      ]
+
+      ---
+      .left-column[
+      ### ¿Qué es ActiveRecord?
+      ]
+      .right-column[
+      ### ¿Qué es ActiveRecord?
+      **ActiveRecord** facilita la creación de objetos cuya información debe ser .red[persistida] en algúna base de datos.
+
+      <br/>
+      - Se conecta a diferentes bases de datos a través de adaptadores de conexión (drivers en Java o DataProviders en .Net)
+
+      - Nos ayuda a interactuar con los datos de la base de datos fácilmente.
+
+      - Además que nos permite validar la información antes de ser enviada a la BD. 
+
+      - Migraciones automaticas 🤘
+
+      - Asociaciones bien bonis 😍 
+
+      ]
+     
+      ---
+      .left-column[
+      ### ¿Qué es ActiveRecord?
+      ### Patrón de diseño
+      ]
+      .right-column[
+      ### Patrón de diseño 
+      
+      **.red[ActiveRecord]** como patrón de diseño (donde sea!)
+
+      - Nombrado así en _"Patterns of Enterprise Application Architecture"_ por **Martin Fowler** 🤓
+
+      - Cuenta con funciones para **insertar, actualizar, y eliminar** datos de la base de datos
+
+      - Se trata de .red[_"mapear"_] tablas y sus columnas en la Base de Datos a objetos y sus atributos en el lenguaje de programación.
+  
+      - Se hizo famoso por la implementación en **Rails** pero existe en casí todos los lenguajes conocidos
+
+      - Es criticado por que no cumple con el principio de Reposabilidad Individual de (SOLID)
+
+      ]
+      ---
+      .left-column[
+      ### ¿Qué es ActiveRecord?
+      ### Patrón de diseño
+      ]
+      .right-column[
+      ### Patrón de diseño (ruby)
+
+      **.red[ActiveRecord]** como "_framework_" (ruby)
+
+      - Es la implementación del patrón en Ruby, utlilizado en la mayoría de las aplicaciones que requieren acceso a datos en una Base de Datos.
+
+      <br/>
+
+      ```ruby
+        class Persona < ActiveRecord::Base
+          attr_accessor :nombre, :apellido
+
+        end 
+      ```
+
+      ]
+
+      ---
+      .left-column[
+      ### ¿Qué es ActiveRecord?
+      ### ¿Por qué usarlo?
+      ### Características
+      ### Comandos 
+      ]
+      .right-column[
+      ### Comandos 
+      #### `git init`
+      #### `git clone <repo>`
+      #### `git status`
+      #### `git add <dir>`
+      #### `git commit`
+      #### `git branch`
+      #### `git checkout <branch>`
+      ]
+
+      ---
+      .left-column[
+      ### Comandos
+      #### `git init`
+      ]
+      .right-column[
+        #### `git init`
+        Inicializa tu directorio actual para el control de versiones con git
+
+        .dark-red[`ejemplo:`]
+
+        ```shell
+        $ git init
+        ```
+
+        Creará una carpeta llamada **`.git/`** en el directorio actual que contiene las información necesaria para el control de versiones
+
+      ]
+
+      ---
+      .left-column[
+      ### Comandos
+      #### `git init`
+      #### `git clone`
+      ]
+      .right-column[
+        #### `git clone`
+        En caso de que tu repositorio (proyecto) ya exista, puedes copiarlo (clonarlo) con el comando `git clone`
+
+        .dark-red[`ejemplo:`]
+
+        ```shell
+        $ git clone project-dir/
+        ``` 
+
+        **`project-dir/`** puede ser un repositorio local o remoto.red[*]
+
+      ]
+
+      ---
+      .left-column[
+      ### Comandos
+      #### `git init`
+      #### `git clone`
+      #### `git status`
+      ]
+      .right-column[
+        #### `git status`
+        Muestra el estado de mi repositorio:
+          - Archivos modificados
+          - Archivos nuevos
+          - Achivos sin seguimiento ('untracked files')
+          - Branch actual
+
+      .dark-red[`ejemplo:`]
+      ```shell
+      $ git status
+      ```
+
+      ```shell
+      On branch master
+
+      Initial commit
+
+      Untracked files:
+        (use "git add <file>..." to include in what will be committed)
+
+        bg1.png
+        index.html
+      ```
+
+      ]
+
+      ---
+      .left-column[
+      ### Comandos
+      #### `git init`
+      #### `git clone`
+      #### `git status`
+       #### `git add`
+      ]
+      .right-column[
+        #### `git add`
+        Agrega archivos nuevos y modificados a la zona de `staging` del repositorio
+        
+        Acepta como parámetros: archivos o directorios que se desean agregar
+
+
+        .dark-red[`ejemplo:`]
+
+        agrega el archivo **`app.rb`** a la zona de `staging`
+        ```shell 
+        $ git add ruby-school/app.rb 
+        ```
+
+        agrega los archivos del **`directorio actual`** a la zona de `staging`
+        ```shell
+        $ git add .
+        ``` 
+
+        ]
+
+      ---
+      .left-column[
+      ### Comandos
+      #### `git init`
+      #### `git clone`
+      #### `git status`
+      #### `git add`
+      #### `git commit`
+      ]
+      .right-column[
+        #### `git commit`
+        Registra los cambios en la zona de .dark-red[`'staging'`] al repositorio y los hace **`rastreables`**, **`recuperables`** y **`revisables`**
+
+        .dark-red[`ejemplo:`]
+
+        ```shell
+        $ git commit -m 'mensaje corto y descriptivo'
+        ```
+        
+        
+        despues, revisa los cambios en el log del repo
+        ```shell
+        $ git log
+        ```
+        
+        ```shell
+        commit 10aa66125f1539f78245d657174efda4efe3dc99
+        Author: dvarela <dan@nearsoft.com>
+        Date:   Tue Jun 1 16:24:45 2017 -0600
+
+            mensaje corto y descriptivo
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Comandos
+      #### `git init`
+      #### `git clone`
+      #### `git status`
+      #### `git add`
+      #### `git commit`
+      #### `git branch`
+      ]
+
+      .right-column[
+        #### `git branch`
+        Un .dark-red[`branch`] es un apuntador ("copia") a un punto en la historia de otro branch (rama base `master`).
+        Representa una división del código base y permite realizar cambios sin afectar los cambios originales 
+
+        Es útil para mantener multiples versiones del mismo proyecto (`v1.0`, `v1.5`)
+
+        .dark-red[`ejemplo:`]
+        
+        lista todos los branches de este repositorio
+        ```shell
+        $ git branch  
+        ```
+        crea un nuevo branch
+        ```shell
+        $ git branch v1.5.0
+        ```       
+
+      ]
+      
+
+      ---
+
+      .left-column[
+      ### Comandos
+      #### `git init`
+      #### `git clone`
+      #### `git status`
+      #### `git add`
+      #### `git commit`
+      #### `git branch`
+      #### `git checkout`
+      ]
+      
+      .right-column[
+      #### `git checkout`
+      Una vez creados los branches, **`git checkout`** permite moverme entre estos. 
+      
+      .dark-red[`ejemplo:`]
+
+      ```shell
+      $ git checkout v1.5 
+      ```
+
+      ```shell
+      Switched to branch 'v1.5'
+      ```
+      ]
+
+      
+      ---
+      .left-column[
+      ### ¿Qué es ActiveRecord?
+      ### ¿Por qué usarlo?
+      ### Características
+      ### Comandos 
+      ### Repos remotos
+      ]
+      .right-column[
+        ### Repos remotos
+        La intención principal de **.dark-red[`git`]** es ayudar a trabajar en equipos colaborativos, entonces necesitamos un repositorio remoto 
+        central donde podemos **`empujar`** muestros cambios y **`jalar`** cambios de otras personas
+
+        .dark-red[`comandos:`]
+        
+        - #### `git push`
+        - #### `git pull`
+      ]
+
+
+      ---
+
+      .left-column[
+      ### Comandos
+      #### `git push`
+      ]
+      .right-column[
+        #### `git push`
+        Permite **`empujar`** [**.dark-red[`push`]**] tu proyecto o las actualizaciones de código a un repositorio remoto.
+        
+        .dark-red[`ejemplo:`]
+
+        ```shell
+        $ git push -u origin <brnach-name>
+        ```
+
+        solo necesitamos poner 
+        
+        ```shell
+        -u origin <branch-name>
+        ``` 
+
+        si en el repositorio remoto no existe ese branch. De otra forma 
+        ```shell
+        $ git push
+        ```
+
+         será suficiente.
+      
+      ]
+      
+      ---
+
+      .left-column[
+      ### Comandos
+      #### `git push`
+      #### `git pull`
+      ]
+      .right-column[
+        #### `git pull`
+        Permite **`jalar`** [**.dark-red[`pull`]**] los cambios que existen en el repositorio remoto y que no existen en tu repo local 
+
+        
+        .dark-red[`ejemplo:`]
+        
+        descarga las actualizaciones del repositorio remoto y las mezcla con el repositorio actual
+        ```shell
+        $ git pull  
+        ```
+      
+      ]
+
+      ---
+      class: center, middle
+      # ¿Preguntas?
+      
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
