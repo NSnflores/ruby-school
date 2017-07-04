@@ -1,0 +1,6 @@
+development:
+  adapter: postgresql
+  host: localhost
+  database: rubyschool_dev
+  user: ahelo
+  password:

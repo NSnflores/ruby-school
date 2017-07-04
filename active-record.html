@@ -20,9 +20,7 @@
 
       Daniel Varela
 
-
       ---
-
       .left-column[
       # Agenda
       ]
@@ -50,10 +48,9 @@
 
       - Además que nos permite validar la información antes de ser enviada a la BD.
 
-      - Migraciones automaticas 🤘
+      - Migraciones automáticas 🤘
 
       - Asociaciones bien bonis 😍
-
       ]
 
       ---
@@ -70,11 +67,11 @@
 
       - Nombrado así en _"Patterns of Enterprise Application Architecture"_ por **Martin Fowler** 🤓
 
-      - Es un objeto que **envuelve** un renglón en una tabla de la base de datos y que también **ecapsula** el acceso a la base de datos y agrega lógica a esos datos.
+      - Es un objeto que **envuelve** un renglón en una tabla de la base de datos y que también **encapsula** el acceso a la base de datos y agrega lógica a esos datos.
 
-      - Cuenta con funciones para **insertar, actualizar, y eliminar** datos de la base de datos
+      - Cuenta con funciones para **insertar, actualizar, y eliminar** datos de la base de datos.
 
-      - Se hizo famoso por la implementación en **Rails** pero existe en casí todos los lenguajes conocidos
+      - Se hizo famoso por la implementación en **Rails** pero existe en casí todos los lenguajes conocidos.
       ]
 
       ---
@@ -88,11 +85,11 @@
 
       **.red[ActiveRecord]** como "_framework_" (ruby)
 
-      - Es la implementación del patrón en Ruby, utlilizado en la mayoría de las aplicaciones que requieren acceso a datos en una Base de Datos.
+      - Es la implementación del patrón en Ruby, utilizado en la mayoría de las aplicaciones que requieren acceso a datos en una Base de Datos.
 
       <br/>
 
-      como funciona?
+      ¿Cómo funciona?
 
       ```ruby
         require 'active_record'
@@ -102,7 +99,6 @@
           # cosas de asociaciones
         end
       ```
-
       ]
 
       ---
@@ -126,7 +122,6 @@
         binary:      | `blob`
         boolean:     | `tinyint`
         json:        | `json`
-
       ]
 
       ---
@@ -137,7 +132,6 @@
         ### _"Convention over Configuration"_
 
         Es un paradigma de software que minimiza el número de decisiones que un desarrollador necesita tomar y gana simplicidad sin perder flexibilidad.
-
       ]
 
       ---
@@ -150,8 +144,6 @@
         Es un paradigma de software que minimiza el número de decisiones que un desarrollador necesita tomar y gana simplicidad sin perder flexibilidad.
 
         ![khe?](http://m.memegen.com/o03h28.jpg)
-
-
       ]
 
       ---
@@ -161,16 +153,12 @@
       .right-column[
         ### _"Convention over Configuration"_
 
-        - Toma las desciciones más comunes por ti
+        - Toma las decisiones más comunes por ti.
 
-        - Funciona sin tener que configurar toda tu aplicación (out of the box)
+        - Funciona sin tener que configurar toda tu aplicación (out of the box).
 
-        - En caso de necestiar cambiar algo, es muy flexibile y te permite hacerlo, por ejemplo en las bases de datos legacies
-
-
+        - En caso de necesitar cambiar algo, es muy flexibile y te permite hacerlo, por ejemplo en las bases de datos legacies.
       ]
-
-
 
       ---
       .left-column[
@@ -179,9 +167,9 @@
       .right-column[
         ### Nombres y convenciones
 
-        Por default ActiveRecord usa algunas convenciones de nombres para las tablas y columnas, objetos y propiedades
+        Por default ActiveRecord usa algunas convenciones de nombres para las tablas y columnas, objetos y propiedades.
 
-        .red[ejemplo:]
+        .red[Ejemplo:]
 
         Model/Class         | Table/Schema
         --------------------|---------------
@@ -200,19 +188,19 @@
       .right-column[
         ### Nombres y convenciones
 
-        - El nombre de las columnas seran el mismo a el de los atributos
+        - El nombre de las columnas seran el mismo al de los atributos.
 
-        .red[ejemplo:]
+        .red[Ejemplo:]
 
         ```ruby
           p = Person.new
           p.nombre = 'John'
         ```
 
-        en la base de datos debe existir una tabla llamada ***'people'*** con una columna llamada ***'nombre'***
+        En la base de datos debe existir una tabla llamada ***'people'*** con una columna llamada ***'nombre'***.
 
         <br/>
-        es posible hacer el mapeo de una propieda a otra columna en la base de datos usando
+        Es posible hacer el mapeo de una propiedad a otra columna en la base de datos usando:
 
         ```ruby
         alias_attribute :<nombre-nuevo>, :<nombre-de-la-columna>
