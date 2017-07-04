@@ -17,4 +17,5 @@ ActiveRecord::Base.establish_connection(
 )
 
 class Usuario < ActiveRecord::Base
+    alias_attribute :perro, :nombre
 end 

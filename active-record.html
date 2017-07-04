@@ -72,8 +72,9 @@
       ### 1. ¿Qué es ActiveRecord?
       ### 2. _"Convention over Configuration"_
       ### 3. Nombres y convenciones
-      ### 5. Modelos
-      ### 6. CRUD
+      ### 5. Ejercicios 
+      - ### 5.1 Modelos
+      - ### 5.2 CRUD
       ]
 
       ---
@@ -179,241 +180,71 @@
 
         - Funciona sin tener que configurar toda tu aplicación (out of the box)
 
-
+        - En caso de necestiar cambiar algo, es muy flexibile y te permite hacerlo, por ejemplo en las bases de datos legacies 
 
 
       ]
 
+
+      
       ---
       .left-column[
-      ### Comandos
-      #### `git init`
-      #### `git clone`
-      #### `git status`
+      ### Nombres y convenciones
       ]
       .right-column[
-        #### `git status`
-        Muestra el estado de mi repositorio:
-          - Archivos modificados
-          - Archivos nuevos
-          - Achivos sin seguimiento ('untracked files')
-          - Branch actual
+        ### Nombres y convenciones
 
-      .dark-red[`ejemplo:`]
-      ```shell
-      $ git status
-      ```
+        - Por default los nombres de las tablas en la base de datos se **pluralizan**
 
-      ```shell
-      On branch master
-
-      Initial commit
-
-      Untracked files:
-        (use "git add <file>..." to include in what will be committed)
-
-        bg1.png
-        index.html
-      ```
-
-      ]
-
-      ---
-      .left-column[
-      ### Comandos
-      #### `git init`
-      #### `git clone`
-      #### `git status`
-       #### `git add`
-      ]
-      .right-column[
-        #### `git add`
-        Agrega archivos nuevos y modificados a la zona de `staging` del repositorio
-        
-        Acepta como parámetros: archivos o directorios que se desean agregar
-
-
-        .dark-red[`ejemplo:`]
-
-        agrega el archivo **`app.rb`** a la zona de `staging`
-        ```shell 
-        $ git add ruby-school/app.rb 
+        .red[ejemplo:]
+        ```ruby
+        class Usuarios < ActiveRecord::Base
+        end 
         ```
 
-        agrega los archivos del **`directorio actual`** a la zona de `staging`
-        ```shell
-        $ git add .
+        en la base de datos buscará una tabla llamada ***`'usuarios'`***
+
+        y cuenta con casos especiales para algunas palabras, por ejemplo 
+        ```ruby
+        class Person < ActiveRecord::Base
+        end 
+        ```
+
+        la buscará como ***'people'*** en la base de datos 
+
+      ]
+
+      ---
+      .left-column[
+      ### Nombres y convenciones
+      ]
+      .right-column[
+        ### Nombres y convenciones
+
+        - El nombre de las columnas seran el mismo a el de los atributos
+        
+        .red[ejemplo:]
+        
+        ```ruby
+          p = Person.new
+          p.nombre = 'John'
+        ```
+        
+        en la base de datos debe existir una tabla llamada ***'people'*** con una columna llamada ***'nombre'***
+
+        <br/>
+        es posible hacer el mapeo de una propieda a otra columna en la base de datos usando 
+
+        ```ruby
+        alias_attribute :<nombre-nuevo>, :<nombre-de-la-columna>
         ``` 
-
-        ]
-
-      ---
-      .left-column[
-      ### Comandos
-      #### `git init`
-      #### `git clone`
-      #### `git status`
-      #### `git add`
-      #### `git commit`
-      ]
-      .right-column[
-        #### `git commit`
-        Registra los cambios en la zona de .dark-red[`'staging'`] al repositorio y los hace **`rastreables`**, **`recuperables`** y **`revisables`**
-
-        .dark-red[`ejemplo:`]
-
-        ```shell
-        $ git commit -m 'mensaje corto y descriptivo'
-        ```
-        
-        
-        despues, revisa los cambios en el log del repo
-        ```shell
-        $ git log
-        ```
-        
-        ```shell
-        commit 10aa66125f1539f78245d657174efda4efe3dc99
-        Author: dvarela <dan@nearsoft.com>
-        Date:   Tue Jun 1 16:24:45 2017 -0600
-
-            mensaje corto y descriptivo
-        ```
       ]
 
       ---
-      .left-column[
-      ### Comandos
-      #### `git init`
-      #### `git clone`
-      #### `git status`
-      #### `git add`
-      #### `git commit`
-      #### `git branch`
-      ]
+      class: center, middle
 
-      .right-column[
-        #### `git branch`
-        Un .dark-red[`branch`] es un apuntador ("copia") a un punto en la historia de otro branch (rama base `master`).
-        Representa una división del código base y permite realizar cambios sin afectar los cambios originales 
-
-        Es útil para mantener multiples versiones del mismo proyecto (`v1.0`, `v1.5`)
-
-        .dark-red[`ejemplo:`]
-        
-        lista todos los branches de este repositorio
-        ```shell
-        $ git branch  
-        ```
-        crea un nuevo branch
-        ```shell
-        $ git branch v1.5.0
-        ```       
-
-      ]
-      
-
-      ---
-
-      .left-column[
-      ### Comandos
-      #### `git init`
-      #### `git clone`
-      #### `git status`
-      #### `git add`
-      #### `git commit`
-      #### `git branch`
-      #### `git checkout`
-      ]
-      
-      .right-column[
-      #### `git checkout`
-      Una vez creados los branches, **`git checkout`** permite moverme entre estos. 
-      
-      .dark-red[`ejemplo:`]
-
-      ```shell
-      $ git checkout v1.5 
-      ```
-
-      ```shell
-      Switched to branch 'v1.5'
-      ```
-      ]
-
-      
-      ---
-      .left-column[
-      ### ¿Qué es ActiveRecord?
-      ### ¿Por qué usarlo?
-      ### Características
-      ### Comandos 
-      ### Repos remotos
-      ]
-      .right-column[
-        ### Repos remotos
-        La intención principal de **.dark-red[`git`]** es ayudar a trabajar en equipos colaborativos, entonces necesitamos un repositorio remoto 
-        central donde podemos **`empujar`** muestros cambios y **`jalar`** cambios de otras personas
-
-        .dark-red[`comandos:`]
-        
-        - #### `git push`
-        - #### `git pull`
-      ]
-
-
-      ---
-
-      .left-column[
-      ### Comandos
-      #### `git push`
-      ]
-      .right-column[
-        #### `git push`
-        Permite **`empujar`** [**.dark-red[`push`]**] tu proyecto o las actualizaciones de código a un repositorio remoto.
-        
-        .dark-red[`ejemplo:`]
-
-        ```shell
-        $ git push -u origin <brnach-name>
-        ```
-
-        solo necesitamos poner 
-        
-        ```shell
-        -u origin <branch-name>
-        ``` 
-
-        si en el repositorio remoto no existe ese branch. De otra forma 
-        ```shell
-        $ git push
-        ```
-
-         será suficiente.
-      
-      ]
-      
-      ---
-
-      .left-column[
-      ### Comandos
-      #### `git push`
-      #### `git pull`
-      ]
-      .right-column[
-        #### `git pull`
-        Permite **`jalar`** [**.dark-red[`pull`]**] los cambios que existen en el repositorio remoto y que no existen en tu repo local 
-
-        
-        .dark-red[`ejemplo:`]
-        
-        descarga las actualizaciones del repositorio remoto y las mezcla con el repositorio actual
-        ```shell
-        $ git pull  
-        ```
-      
-      ]
-
+      # Ejercios \o/
+     
       ---
       class: center, middle
       # ¿Preguntas?
