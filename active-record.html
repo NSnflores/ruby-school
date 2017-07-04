@@ -44,7 +44,28 @@
 
       
       strong, b {color: #379fb2;}
+
+        table {
+          border-collapse: collapse;
+        }
+            
+        th {
+            font-weight: bold;
+        }
+
+        th, td {
+                padding: 6px 13px;
+                border: 1px solid #dfe2e5;
+        }
+
+        tr {
+            border-top: 1px solid #c6cbd1;
+        }
       
+        tr:nth-child(2n) {
+            background-color: #F6F8FA;
+        }
+
     </style>
   </head>
   <body>
@@ -111,20 +132,22 @@
       <br/>
 
       - Nombrado así en _"Patterns of Enterprise Application Architecture"_ por **Martin Fowler** 🤓
-
+    
+      - Es un objeto que **envuelve** un renglón en una tabla de la base de datos y que también **ecapsula** el acceso a la base de datos y agrega lógica a esos datos.
+    
       - Cuenta con funciones para **insertar, actualizar, y eliminar** datos de la base de datos
 
-      - Se trata de .red[_"mapear"_] tablas y sus columnas en la Base de Datos a objetos y sus atributos en el lenguaje de programación. A esto se le llama **ORM** (Object-Relational mapping) 
-  
       - Se hizo famoso por la implementación en **Rails** pero existe en casí todos los lenguajes conocidos
       ]
+      
       ---
       .left-column[
       ### ¿Qué es ActiveRecord?
       ### Patrón de diseño
+      ### ActiveRecord Framework
       ]
       .right-column[
-      ### Patrón de diseño (ruby)
+      ### ActiveRecord Framework
 
       **.red[ActiveRecord]** como "_framework_" (ruby)
 
@@ -133,6 +156,7 @@
       <br/>
 
       como funciona?
+
       ```ruby
         require 'active_record'
 
@@ -141,6 +165,30 @@
           # cosas de asociaciones 
         end 
       ```
+
+      ]
+
+      ---
+      .left-column[
+      ### ¿Qué es ActiveRecord?
+      ### Patrón de diseño
+      ### ActiveRecord Framework
+      ]
+      .right-column[
+      ### ActiveRecord framework: tipos de datos        
+        Tipo en Ruby | En Base de datos  
+        -------------|-------------------
+        string:      | `varchar`         
+        text:        | `text`            
+        integer:     | `int`             
+        float:       | `float`        
+        decimal:     | `decimal`      
+        datetime:    | `datetime`     
+        timestamp:   | `timestamp`    
+        date:        | `date`         
+        binary:      | `blob`            
+        boolean:     | `tinyint`         
+        json:        | `json`         
 
       ]
 
@@ -194,23 +242,17 @@
       .right-column[
         ### Nombres y convenciones
 
-        - Por default los nombres de las tablas en la base de datos se **pluralizan**
-
+        Por default ActiveRecord usa algunas convenciones de nombres para las tablas y columnas, objetos y propiedades
+    
         .red[ejemplo:]
-        ```ruby
-        class Usuarios < ActiveRecord::Base
-        end 
-        ```
 
-        en la base de datos buscará una tabla llamada ***`'usuarios'`***
-
-        y cuenta con casos especiales para algunas palabras, por ejemplo 
-        ```ruby
-        class Person < ActiveRecord::Base
-        end 
-        ```
-
-        la buscará como ***'people'*** en la base de datos 
+        Model/Class         | Table/Schema  
+        --------------------|---------------
+        `Articulo`          | `articulos`       
+        `LineItem`          | `line_items`     
+        `Perro`             | `perros`
+        `Mouse`             | `mice`           
+        `Person`            | `people`
 
       ]
 
@@ -243,7 +285,9 @@
       ---
       class: center, middle
 
-      # Ejercios \o/
+      # Ejercicios \o/
+
+      dvarelap/ruby-school
      
       ---
       class: center, middle
