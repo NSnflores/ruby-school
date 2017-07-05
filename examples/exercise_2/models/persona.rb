@@ -1,4 +1,6 @@
 class Persona < ActiveRecord::Base
+  has_many :productos
+
   validates :nombre, format: { with: /\A[a-zA-Z]+\z/ }, unless: :es_un_enano?
   validates :genero, presence: true
   validate  :fecha_de_nacimiento_no_puede_ser_en_el_futuro

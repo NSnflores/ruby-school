@@ -481,14 +481,101 @@
         a través del tiempo de una forma sencilla y consistente en lugar de darnos
         de __trancazos__ directamente con el manejador de base de datos.
 
+        ```ruby
+        class CrearPersonas < ActiveRecord::Migration[5.1]
+          def change
+            create_table :personas do |t|
+              t.string  :nombre
+              t.date    :fecha_de_nacimiento
+              ...
+
+              # Opcional
+              t.timestamps
+            end
+          end
+        end
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ### Migraciones
+      ]
+      .right-column[
+        ### Migraciones
+
+        Además de poder crear tablas, podemos agregar nuevas columnas.
+
+        ```ruby
+        class AgregarPesoEnPersonas < ActiveRecord::Migration[5.1]
+          def change
+            add_column :personas, :peso, :integer
+            add_index  :personas, :peso
+          end
+        end
+        ```
+
+         O eliminarlas...
+
+        ```ruby
+        class EliminarPesoEnPersonas < ActiveRecord::Migration[5.1]
+          def change
+            remove_column :personas, :peso, :integer
+            remove_index  :personas, :peso
+          end
+        end
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ### Migraciones
+      ]
+      .right-column[
+        ### Migraciones
+
+        Es posible también realizar actualizaciones de columnas/atributos existentes:
+
+        ```ruby
+        class ActualizarEstaturaEnPersonas < ActiveRecord::Migration[5.1]
+          def up
+            change_table :personas do |t|
+              t.change :estatura, :float
+            end
+          end
+
+          def down
+            change_table :personas do |t|
+              t.change :estatura, :integer
+            end
+          end
+        end
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ### Migraciones
+      ]
+      .right-column[
+        ### Migraciones
+
+        Bueno... y ¿luego? ¿cómo las ejecuto?
+
+        ```ruby
+        >> rake -vT
+        # rake db:create   # Creates the database from...
+        # rake db:drop     # Drops the database from D...
+        # rake db:migrate  # Migrate the database (opt...
+        # rake db:rollback # Rolls the schema back to ...
+        ```
+
         Para implementarlas fácilmente usaremos la gema Standalone Migrations:
 
         https://github.com/thuss/standalone-migrations
-
-        ```ruby
-          p = Person.new
-          p.nombre = 'John'
-        ```
       ]
 
       ---
@@ -500,22 +587,111 @@
       .right-column[
         ### Asociaciones
 
-        - El nombre de las columnas seran el mismo al de los atributos.
+        Prácticamente, una asociación es una __conexión__ entre 2 modelos de ActiveRecord.
 
-        .red[Ejemplo:]
+        Existen distintos tipos de asociaciones:
+
+        - `belongs_to`
+
+        - `has_one`
+
+        - `has_many`
+
+        - `has_many :through`
+
+        - `has_one :through`
+
+        - `has_and_belongs_to_many`
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ### Migraciones
+      ### Asociaciones
+      ]
+      .right-column[
+        ### belongs_to
+
+        Indica que una instancia del modelo que incluye esta asociación "pertenece"
+        a una instancia del otro modelo especificado.
 
         ```ruby
-          p = Person.new
-          p.nombre = 'John'
+        class Producto < ActiveRecord::Base
+          belongs_to :persona
+        end
         ```
 
-        En la base de datos debe existir una tabla llamada ***'people'*** con una columna llamada ***'nombre'***.
+        ```
+        +--------------+         +--------------+
+        | Productos    |         | Personas     |
+        +--------------+         +--------------+
+        | id           | ------> | id           |
+        | descripcion  |         | nombre       |
+        | persona_id   |         +--------------+
+        +--------------+
+        ```
+      ]
 
-        <br/>
-        Es posible hacer el mapeo de una propiedad a otra columna en la base de datos usando:
+      ---
+      .left-column[
+      ### Validaciones
+      ### Migraciones
+      ### Asociaciones
+      ]
+      .right-column[
+        ### has_one
+
+        También indica una asociación de uno a uno con otro modelo pero bajo el
+        contexto de que una instancia del modelo que incluye esta asociación solamente "tiene una"
+        instancia del otro modelo especificado.
+
 
         ```ruby
-        alias_attribute :<nombre-nuevo>, :<nombre-de-la-columna>
+        class Persona < ActiveRecord::Base
+          has_one :producto
+        end
+        ```
+
+        ```
+        +--------------+         +--------------+
+        | Productos    |         | Personas     |
+        +--------------+         +--------------+
+        | id           | ------> | id           |
+        | descripcion  |         | nombre       |
+        | persona_id   |         +--------------+
+        +--------------+
+        ```
+      ]
+
+      ---
+      .left-column[
+      ### Validaciones
+      ### Migraciones
+      ### Asociaciones
+      ]
+      .right-column[
+        ### has_many
+
+        Esta asociación por el contrario, indica una relación de uno a muchos con otro modelo
+        lo cual significa que una instancia del modelo que incluye esta asociación puede tener
+        "muchas" otras instancias del otro modelo especificado.
+
+
+        ```ruby
+        class Persona < ActiveRecord::Base
+          has_many :productos
+        end
+        ```
+
+        ```
+        +--------------+         +--------------+
+        | Productos    |         | Personas     |
+        +--------------+         +--------------+
+        | id           | ------> | id           |
+        | descripcion  |         | nombre       |
+        | persona_id   |         +--------------+
+        +--------------+
         ```
       ]
 
@@ -523,6 +699,8 @@
       class: center, middle
 
       # Ejercicios \o/
+
+      ![Finn](images/finn.jpg)
 
       dvarelap/ruby-school
 
