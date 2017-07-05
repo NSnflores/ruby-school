@@ -36,6 +36,11 @@ user.apellido  = 'Varela'
 
 ```
 
+Guardamos el usuario
+```ruby
+user.save
+```
+
 Revisamos en la base de datos nuestros registros
 ```sql
 select * from usuarios;
